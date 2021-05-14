@@ -1,0 +1,77 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{%load static%}
+<title>
+    Employees
+</title>
+<script type="text/javascript" src="{%static 'js/parsley.min.js'%}"></script> 
+
+<div id="content">
+    <!-- Filter Bar [Start] -->
+    <div class="filterBar">
+        <div class="container">     
+            <h3>Employee Management</h3>
+            <br />
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_form">
+                <i class="fa fa-plus"> Add New Employee</i>
+            <button class="btn btn-default" onclick="load()"><i class="fa fa-refresh"></i> Reload</button>
+            <br />
+            <br />
+            <div id="table_wrapper" class="dataTables_wrapper">
+            <div class="dataTables_length" id="table_length">
+                <label>Show Entries<select name="table_length" aria-controls="table" class="">
+                    <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div>
+            <div id="table_filter" class="dataTables_filter">
+                <label>Search:<input type="search" class="" placeholder="Enter" aria-controls="table"></label></div>
+                <div id="table_processing" class="dataTables_processing" style="display: none;">Processing...</div>
+            <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr >
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Date of Join</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for i in emp%}
+                    <tr role="row" class="odd">
+                        <td>{{i.id}}</td>
+                        <td>{{i.username}}</td>
+                        <td>{{i.email}}</td>
+                        <td>{{i.date_joined}}</td>
+                  
+                    </tr>
+                    {% endfor %}
+                </tbody>     
+                
+            </table>
+            <!-- <div class="dataTables_info" id="table_info" role="status" aria-live="polite">Showing 41 to 50 of 68 entries</div>
+            <div class="dataTables_paginate paging_simple_numbers" id="table_paginate">
+                <a class="paginate_button previous disabled" aria-controls="table" data-dt-idx="0" tabindex="0" id="table_previous">Previous</a>
+                <span><a class="paginate_button current" aria-controls="table" data-dt-idx="1" tabindex="0">1</a><a class="paginate_button " aria-controls="table" data-dt-idx="2" tabindex="0">2</a><a class="paginate_button " aria-controls="table" data-dt-idx="3" tabindex="0">3</a><a class="paginate_button " aria-controls="table" data-dt-idx="4" tabindex="0">4</a><a class="paginate_button " aria-controls="table" data-dt-idx="5" tabindex="0">5</a><a class="paginate_button " aria-controls="table" data-dt-idx="6" tabindex="0">6</a><a class="paginate_button " aria-controls="table" data-dt-idx="7" tabindex="0">7</a></span><a class="paginate_button next" aria-controls="table" data-dt-idx="8" tabindex="0" id="table_next">Next</a></div> -->
+        </div><!--/container-->
+    </div><!--/container-->
+</div><!--Content [END]-->
+
+
+
+
+<script type="text/javascript">
+ 
+ 
+function reload_table()
+{
+    table.ajax.reload(null,false); //reload datatable ajax
+    console.log("Table")
+}
+function load(){
+    window.location.reload(true);
+    console.log("Table")
+}
+
+
+
+</script>
+{%  endblock %}

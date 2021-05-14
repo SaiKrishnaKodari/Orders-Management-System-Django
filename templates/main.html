@@ -1,0 +1,141 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="shortcut icon" href="{%static 'favicon.ico'%}" type="image/x-icon">
+<link rel="icon" href="{%static 'favicon.ico'%}" type="image/x-icon">
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,300' rel='stylesheet' type='text/css'>
+<link href="{%static 'styles/styles.css'%} " rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300' rel='stylesheet' type='text/css'>
+<link href="{% static 'styles/customstyles.css' %}" rel="stylesheet">
+<link href="{%static 'styles/parsley.css'%}" rel="stylesheet">
+<link href="{%static 'styles/magnific-popup.css' %}" rel="stylesheet">
+<link href="{%static 'styles/dataTables.bootstrap.css'%}" rel="stylesheet">
+<link href="{%static 'styles/bootstrap-datepicker.css'%}" rel="stylesheet">
+<link href="{%static 'styles/chosen.css'%}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!--Scripts--> 
+<script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script> 
+<script type="text/javascript" src="{%static 'js/jquery-migrate-1.3.0.min.js'%}"></script> 
+</head>
+<body style="background-image:url({%static 'background.jpg' %})">
+<!--SuperDiv [Start]-->
+<div id="superdiv"> 
+  <!--Header [Start]-->
+  <header id="header">
+    <div class="container">
+      <div class="row"> 
+        <!--Logo-->
+        <aside class="logo pull-left"><img src="{%static 'logo1.jpg'%}" alt="Trubot" height="85" width="150"></aside>
+        <div class="usrOpt no-pad col-md-6 pull-right">
+          <!-- Status Bar [Start] -->
+          <div class="statusBar"> <span class="pull-left">Welcome {{request.user.username}}</span>
+            <div class="dropdown pull-left"> <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="pad-5 btn-useropt cursor"> <i class="fa fa-angle-down"></i> </a> |
+              <ul class="dropdown-menu useroptMenu" aria-labelledby="dLabel">
+                <li><a data-toggle="modal" data-target="#password-popup" href="#password-popup" class="open-popup-link">Change Password</a></li>
+              </ul>
+            </div>
+            <a href="/logout" class="pad-5 f12"><i class="fa fa-sign-out"></i> Logout</a> </div>
+          <!-- Status Bar [END] 
+          <a href="<?php echo site_url("dashboard"); ?>" class="btn btn-default active pull-right">Dashboard</a>-->  
+          
+          <!-- office Drop Down-->
+          <!-- <div class="dropdown pull-right"> <a id="office" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-default btn-dropDown"> All Location <i class="fa fa-angle-down"></i> </a>
+            <ul class="dropdown-menu useroptMenu" aria-labelledby="dLabel">
+              <li><a href="<?php echo site_url("employee/office/"); ?>?office_id=0&return_url=<?php echo str_replace($this->config->item('url_suffix'), "", current_url()) ?>">All Location</a></li>
+              <?php foreach ($offices as $v) : ?>
+              <li><a href="<?php echo site_url("employee/office/"); ?>?office_id=<?php echo $v['id']; ?>&return_url=<?php echo str_replace($this->config->item('url_suffix'), "", current_url()) ?>"><?php echo $v['title']; ?></a></li>
+              <?php if($this->session->office_id == $v['id']): ?>
+              <script>$('#office').html('<?php echo $v['title']; ?>&nbsp;&nbsp;<i class="fa fa-angle-down"></i>');</script>
+              
+            </ul>
+            <?php endif; ?>
+          </div> -->
+        </div>
+      </div>
+      <!--/row--> 
+    </div>
+    <!--/container--> 
+    <!-- Main Menu [Start] -->
+    <nav id="mainMenu">
+      <div class="container">
+        <div class="row">
+          <ul class="topMenu">
+            <li > <a href="/"><i class="fa fa-dashboard"></i><br>
+              Dashboard</a> </li>
+            
+            <li > <a href="/bookings"><i class="fa fa-book"></i><br>
+              Bookings</a> </li>
+            
+            <li > <a href="/customers"><i class="fa fa-users"></i><br>
+              Customers</a> </li>
+            
+            <li> <a href="/Employees"><i class="fa fa-user-secret"></i><br>
+              Employees</a> </li>
+            
+            <li> <a href="/brands"><i class="fa fa-cog"></i><br>
+              Brands</a> </li>
+
+            <li > <a href="/brandmodels"><i class="fa fa-cogs"></i><br>
+              Brand Models</a> </li>
+
+            <li> <a href="/email"><i class="fa fa-envelope"></i><br>
+              Email Templates</a> </li>
+          </ul>
+        </div>
+        <!--/row--> 
+      </div>
+      <!--/container--> 
+    </nav>
+    <!-- Main Menu [END] --> 
+  </header>
+  <!--Header [END]--> 
+  <!--Content [Start]-->
+  
+</div>
+{% block content %}
+{% endblock %} 
+<!--SuperDiv [END]-->
+<!-- Modal -->
+<div class="modal fade" id="password-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+		<?php echo form_open('employee/change_password', array('class' => "col-md-10 fn mauto", 'data-parsley-validate' => "" )); ?>
+		<input type="hidden" name="return_url" value="<?php echo str_replace($this->config->item('url_suffix'), "", current_url()); ?>" style="display:none;" />
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Change Password</h4>
+      </div>
+      <div class="modal-body">
+		<div class="popGrid">
+			<div class="form-group">
+				<input name="password" type="password" placeholder="New Passsword" class="form-control" id="password" value="" required minlength="3" maxlength="32">
+			</div>
+			<div class="form-group">
+				<input name="re-password" type="password" placeholder="Confirm Password" class="form-control" required minlength="3" maxlength="32" data-parsley-equalto="#password">
+			</div>			
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Change Password</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script> 
+<script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js'%}"></script> 
+<script type="text/javascript" src="{% static 'js/parsley.min.js'%}"></script> 
+<script type="text/javascript" src="{% static 'js/jquery.knob.min.js'%}"></script> 
+<script type="text/javascript" src="{% static 'js/jquery.magnific-popup.min.js'%}"></script> 
+<script type="text/javascript" src="{% static 'js/bootstrap-datepicker.min.js'%}"></script> 
+<script type="text/javascript" src="{% static 'js/chosen.jquery.js'%}"></script> 
+<script type="text/javascript" src="{% static 'js/settings.js'%}"></script>
+</body>
+</html>

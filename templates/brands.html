@@ -1,0 +1,89 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{%load static%}
+<title>
+    Booking
+</title>
+<script type="text/javascript" src="{%static 'js/parsley.min.js'%}"></script> 
+
+<div id="content">
+    <!-- Filter Bar [Start] -->
+    <div class="filterBar">
+        <div class="container">     
+            <h3>Task Management</h3>
+            <br />
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_form">
+            <i class="fa fa-plus"> Add New Brand</i>
+            <button class="btn btn-default" onclick="load()"><i class="fa fa-refresh"></i> Reload</button>
+            <br />
+            <br />
+            <div id="table_wrapper" class="dataTables_wrapper">
+            <div class="dataTables_length" id="table_length">
+                <label>Show Entries<select name="table_length" aria-controls="table" class="">
+                    <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div>
+            <div id="table_filter" class="dataTables_filter">
+                <label>Search:<input type="search" class="" placeholder="Enter" aria-controls="table"></label></div>
+                <div id="table_processing" class="dataTables_processing" style="display: none;">Processing...</div>
+            <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr >
+                        <th>ID</th>
+                        <th>Name</th>
+                      
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for i in deals%}
+                    <tr role="row" class="odd">
+                        <td>{{i.id}}</td>
+                        <td>{{i.devicename}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>     
+            </table>
+        </div><!--/container-->
+    </div><!--/container-->
+</div><!--Content [END]-->
+    <!-- Add Customer Modal -->
+    <div class="modal fade" id="modal_form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Add New Customer</h4>
+            </div>
+            <div class="modal-body form">
+              <form method=POST id="brandform" name="brandform" class="form-horizontal">
+                {% csrf_token %}
+                  <input type="hidden" value="" name="id"/>
+                  <div class="form-body">
+                      <div class="form-group">
+                          <label class="control-label col-md-3">Device Brand Name</label>
+                          <div class="col-md-9">
+                              <input name="brandname" placeholder="Brand Name" class="form-control" type="text" required="">
+                              <span class="help-block"></span>
+                          </div>
+                      </div>
+                  </div>
+          </div>
+          <div class="modal-footer">
+              <button ttype="submit" value='submit' class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+
+
+
+
+<script type="text/javascript">
+function load(){
+    window.location.reload(true);
+    console.log("Table")
+}
+
+</script>
+{%  endblock %}

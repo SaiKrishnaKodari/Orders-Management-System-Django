@@ -1,0 +1,162 @@
+{% extends 'index.html'%}
+{% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+</style>
+<script>
+  $( function() {
+    $( "#handedon" ).datepicker({dateFormat: "yy-mm-dd",  minDate: -20, maxDate: "+1M +15D" });
+
+  } );
+  </script>
+</head>
+<body>
+
+<div class="container">
+  <form method="POST" id="bookingform" name="bookingform">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-25">
+        <label for="fname">Customer Name : </label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="firstname" name="firstname" placeholder="Your name..">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="adress">Customer Adress : </label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="adress" name="adress" placeholder="customer adress ....">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="custommobile">Customer Mobile No :</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="custommobile" name="custommobile" placeholder="Your last name..">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="country">Mobile Model : </label>
+      </div>
+      <div class="col-75">
+        <select id="mmodel" name="mmodel">
+          <option value="I-Phone 10">I-Phone 10</option>
+          <option value="I-phone6">I-phone6</option>
+          <option value="I-Phone11">I-Phone11</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="subject">Job : </label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="jobrepair" name="jobrepair" placeholder="Repair of">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="subject"> Handed to : </label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="handedto" name="handedto" placeholder="Handed To">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="subject">Handed on Date : </label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="handedon" name="handedon" placeholder="Handed On">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="subject">Pictures : </label>
+      </div>
+      <div class="col-75">
+        <input type="file" id="snaps" name="snaps" accept="image/*" capture>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+</div>
+
+<h2>Please Note the Unique ID : {{obj}}</h2>
+
+{% endblock %}

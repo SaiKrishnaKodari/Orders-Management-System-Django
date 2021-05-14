@@ -1,0 +1,428 @@
+{% extends 'booking.html' %}
+
+{% block content %}
+<script>
+    $( function() {
+      $( "#datepick" ).datepicker({dateFormat: "yyyy-mm-dd",  minDate: -20, maxDate: "+1M +15D" });
+      $( "#datepick1" ).datepicker({dateFormat: "yy-mm-dd",  minDate: -20, maxDate: "+1M +15D" });
+  
+    } );
+    </script>
+<div class="container bookings-form">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Add a Booking</h2>
+            <!-- <?php if(isset($job)): ?>
+                <h2>Update a Booking</h2>
+            <?php else: ?>    
+                
+            <?php endif ?>    
+            </div>
+            <?php /*<div class="col-sm-6"> -->
+                <!-- <h3 class="alert alert-success pull-right text-uppercase">Unlocknetwork Repare</h3> -->
+           </div>
+        </div>
+        <div class="form-box">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Job Information</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <form method=POST id="bookingform" name="bookingform">
+                                    {% csrf_token %}
+                                <label for="">Cutomer Name </label>
+                                <input type="text" class="form-control" name="customer" required="" placeholder="Enter Customer Name">
+                                <!-- <select name="customer_id" data-placeholder="Select customer" class="chosen-select" required="">
+                                <option></option>
+                                <?php foreach ($customers as $customer): ?>
+                                  <option value="<?php echo $customer['id'] ?>" <?php echo set_select('customer_id', $customer['id'], (isset($job) && $job[0]['customer_id'] == $customer['id']?TRUE:FALSE) ); ?>><?php echo $customer['name'] ?></option>
+                                <?php endforeach ?>
+                               </select> -->
+                            </div>
+                            <!-- <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_form">
+                              <i class="fa fa-plus"> Add New Customer</i> 
+                            </button> -->
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="">Receive Date</label>
+                                <input name="receive_date" type="text" class="form-control" id="datepick" required="" placeholder="Enter Received Date">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="">Delivery Date</label>
+                                <input type="text" class="form-control" id="datepick1" name="delivery_date" required="" placeholder="Enter Expected Delivery Date">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="">Job Pending with</label>
+                                <!-- <input type="text" class="form-control" name="technician" required="" placeholder="Enter Technician Name"> -->
+                                <select data-placeholder="Select From List" class="form-control brand" name="technician" required="">
+                                    <option></option>
+                                    {%for i in techies%}
+                                        <option value="{{i.username}}">{{i.username}}</option>
+                                    {% endfor %}
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="">User Email</label>
+                                <input name="email" type="email" class="form-control" id="email" required="" placeholder="Enter Email ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Device Information</h3>
+                </div>
+                <div class="panel-body">
+                <div class="device-info">            
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Device Brand</label>
+                                <select data-placeholder="Select From List" class="form-control brand" name="brand_id" required="">
+                                <option></option>
+                                {%for i in devices%}
+                                    <option value="{{i.devicename}}">{{i.devicename}}</option>
+                                {% endfor %}
+                                </select>
+                                <!-- <input type="text" class="form-control" name="brand" required="" placeholder="Enter brand of Mobile"> -->
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Device Model</label>
+                                <input type="text" class="form-control" name="model" required="" placeholder="Enter Model">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">IMEI/ ESN/ SN</label>
+                                <input type="text" class="form-control" name="imeinumber" required="" placeholder="Enter IMEI of Mobile">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Device Color</label>
+                                <input type="text" class="form-control" name="color" required="" >
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Provider Info</label>
+                                <input type="text" class="form-control" name="provider" required="" >
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Device Password</label>
+                                <input type="text" class="form-control" name="device_password" required="">
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="">Fault Discription</label>
+                                <input type="text" class="form-control" name="fault_discription" required="" >
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Cost</label>
+                                <input type="text" class="form-control" name="cost" required="" >
+                            </div>
+                        </div>                    
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Amount</label>
+                                <input type="text" class="form-control" name="amount" required="" >
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Initial Check</h4>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Power On</label>
+                                <select data-placeholder="Select From List" class="form-control" name="power_on" required="">
+                                    <option></option>
+                                    <option value="True">Working</option>
+                                    <option value="False">Not Working</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Charging</label>
+                                <select data-placeholder="Select From List" class="form-control" name="charging" required="">
+                                    <option></option>
+                                    <option value="True" >Working</option>
+                                    <option value="False" >Not Working</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Network</label>
+                                <select data-placeholder="Select From List" class="form-control" name="network" required="">
+                                    <option></option>
+                                    <option value="True">Working</option>
+                                    <option value="False">Not Working</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Display</label>
+                                <select data-placeholder="Select From List" class="form-control" name="display" required="">
+                                    <option></option>
+                                    <option value="1" <?php echo set_select('display[]', 1, $device['display'] == 1 ?TRUE:FALSE ); ?>>Working</option>
+                                    <option value="0" <?php echo set_select('display[]', 0, $device['display'] == 0 ?TRUE:FALSE ); ?>>Not Working</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Camera</label>
+                                <select data-placeholder="Select From List" class="form-control" name="camera" required="">
+                                    <option></option>
+                                    <option value="True">Working</option>
+                                    <option value="False" >Not Working</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Battery</label>
+                                <select data-placeholder="Select From List" class="form-control" name="battery" required="">
+                                    <option></option>
+                                    <option value="True">Working</option>
+                                    <option value="False">Not Working</option>
+                                </select>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Images Of Device</label>
+                                <input type="file" id="snaps" name="snaps" accept="image/*" capture>
+                            </div>
+                        </div>
+                    </div> 
+                    <hr>                               
+                </div>
+                </div>
+               
+            <!-- <?php else: ?>
+                <div class="device-info">            
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Device Model</label>
+                                <select data-placeholder="Select From List" class="form-control brand" name="brand_id[]" required="">
+                                <option></option>
+                                <?php foreach ($brands as $brand): ?>
+                                    <option value="<?php echo $brand['id'] ?>" <?php echo set_select('brand_id[]', $brand['id'] ); ?>><?php echo $brand['title'] ?></option>
+                                <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Device Model</label>
+                                <select data-placeholder="Select From List" class="form-control model" name="brand_model_id[]" required="">
+                                <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">IMEI/ ESN/ SN</label>
+                                <input type="text" class="form-control" name="device_number[]" required="" value="<?php echo set_value('device_number[]'); ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Device Color</label>
+                                <input type="text" class="form-control" name="color[]" required="" value="<?php echo set_value('color[]'); ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Provider Info</label>
+                                <input type="text" class="form-control" name="provider[]" required="" value="<?php echo set_value('provider[]'); ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Device Password</label>
+                                <input type="text" class="form-control" name="device_password[]" required="" value="<?php echo set_value('device_password[]'); ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="">Fault Discription</label>
+                                <input type="text" class="form-control" name="fault_discription[]" required="" value="<?php echo set_value('fault_discription[]'); ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Cost</label>
+                                <input type="text" class="form-control" name="cost[]" required="" value="<?php echo set_value('cost[]'); ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Amount</label>
+                                <input type="text" class="form-control" name="amount[]" required="" value="<?php echo set_value('amount[]'); ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Initial Check</h4>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Power On</label>
+                                <select data-placeholder="Select From List" class="form-control" name="power_on[]" required="">
+                                    <option></option>
+                                    <option value="1" <?php echo set_select('power_on[]', 1 ); ?>>Working</option>
+                                    <option value="0" <?php echo set_select('power_on[]', 0 ); ?>>Not Working</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Charging</label>
+                                <select data-placeholder="Select From List" class="form-control" name="charging[]" required="">
+                                    <option></option>
+                                    <option value="1" <?php echo set_select('charging[]', 1 ); ?>>Working</option>
+                                    <option value="0" <?php echo set_select('charging[]', 0 ); ?>>Not Working</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Network</label>
+                                <select data-placeholder="Select From List" class="form-control" name="network[]" required="">
+                                    <option></option>
+                                    <option value="1" <?php echo set_select('network[]', 1 ); ?>>Working</option>
+                                    <option value="0" <?php echo set_select('network[]', 0 ); ?>>Not Working</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Display</label>
+                                <select data-placeholder="Select From List" class="form-control" name="display[]" required="">
+                                    <option></option>
+                                    <option value="1" <?php echo set_select('display[]', 1 ); ?>>Working</option>
+                                    <option value="0" <?php echo set_select('display[]', 0 ); ?>>Not Working</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Camera</label>
+                                <select data-placeholder="Select From List" class="form-control" name="camera[]" required="">
+                                    <option></option>
+                                    <option value="1" <?php echo set_select('camera[]', 1 ); ?>>Working</option>
+                                    <option value="0" <?php echo set_select('camera[]', 0 ); ?>>Not Working</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="dpBlock" for="">Battery</label>
+                                <select data-placeholder="Select From List" class="form-control" name="battery[]" required="">
+                                    <option></option>
+                                    <option value="1" <?php echo set_select('battery[]', 1 ); ?>>Working</option>
+                                    <option value="0" <?php echo set_select('battery[]', 0 ); ?>>Not Working</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div> 
+                    <hr>                               
+                </div>                            
+            <?php endif ?>                
+                <a class="btn btn-info btn-sm" id="copydevice" href="#" rel=".device-info"><i class="fa fa-plus"></i> &nbsp; Add More Devices</a>            
+                </div>-->
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Description & Remarks</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="">Other Notes</label>
+                                <textarea class="form-control" name="notes" placeholder="Enter Other Information"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-5">        
+            </div>
+            <div class="col-md-5">
+                <button type="submit" value='submit' class="btn btn-success btn-lg btn-block"><i class="fa fa-save"></i> &nbsp; Save</button>
+            </div>
+        </div>
+    </form>
+    </div>
+    <!-- Add Customer Modal -->
+    <div class="modal fade" id="modal_form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add New Customer</h4>
+          </div>
+          <div class="modal-body form">
+            <form action="#" id="form" class="form-horizontal">
+                <input type="hidden" value="" name="id"/>
+                <div class="form-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Device Brand Name</label>
+                        <div class="col-md-9">
+                            <input name="brandname" placeholder="Brand Name" class="form-control" type="text" required="">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    
+    <script type="text/javascript" charset="utf-8">
+    
+    
+    function save()
+    {
+        // window.location.href="/savebrand"
+    }
+    </script>
+    {%  endblock %}

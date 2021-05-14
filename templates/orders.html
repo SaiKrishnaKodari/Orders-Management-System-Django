@@ -1,0 +1,115 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+
+
+</head>
+<style>
+table{border-collapse: collapse;border: 2px solid #4863A0;}
+td{border: 2px solid black;text-align:center;padding:10px;}
+th {
+    background-color: #4863A0;
+    color: white;
+    border: 2px solid #4863A0;
+}</style>
+
+
+<script>
+  function call_counter(url, pk) {
+      window.open(url);
+      $.get('YOUR_VIEW_HERE/'+pk+'/', function (data) {
+          alert("counter updated!");
+      });
+  }
+</script>
+
+
+
+<!-- <style>
+body,h1{font-family: "Raleway", sans-serif;padding:20px}
+table {
+  border-collapse: collapse;
+  align-content: center;
+}
+
+th {
+  border: 1px solid orange;
+  padding: 2px;
+}
+td {
+  border: 1px solid orange;
+  padding: 2px;
+}
+</style>
+
+    <h1>TASKS TO BE DONE</h1>
+    <div class="w3-display-middle">
+    
+
+    <table class="table-responsive" >
+        <tr>
+        <th>NAME</th>
+        <th>ADRESS</th>
+        <th>MOBILE NUmber</th>
+        <th>JOB</th>
+        <th>MODEL</th>
+        </tr>
+    
+    
+    {%for book in bookings%}
+        <tr>
+        <td>{{book.Customername}}</td>
+        <td>{{book.CustomerAdress}}</td>
+        <td>{{book.CustomerMobile}}</td>
+        <td>{{book.job}}</td>  
+        <td>{{book.MobileModel}}</td>  
+    </tr>
+    <br>
+    {% endfor%}
+</table> -->
+<div class="table-responsive">
+
+<table class="table">
+  <thead class="thead-light">
+    <tr style="background-color: black;">
+      <th scope="col">UNIQUE ID</th>
+      <th scope="col">NAME</th>
+      <th scope="col">ADRESS</th>
+      <th scope="col">MOBILE</th>
+      <th scope="col">JOB</th>
+      <th scope="col">MOBILE MODEL</th>
+      <th scope="col">STATUS</th>
+    </tr>
+  </thead>
+  {%for book in bookings%}
+  
+  <tbody>
+    <tr>
+      <td scope="row">{{book.id}}</td>
+      <td>{{book.Customername}}</td>
+      <td>{{book.CustomerAdress}}</td>
+      <td>{{book.CustomerMobile}}</td>
+      <td>{{book.job}}</td>
+      <td>{{book.MobileModel}}</td>
+      {% if book.status %}
+      <td><button onclick="" style="background-color: green;">DONE</button></td>
+      {%else%}
+      <td><button onclick="" style="background-color: RED;">PENDING</button></td>
+      {% endif %}
+    </tr>
+  </tbody>
+  {% endfor%}
+</table>
+</div>
+
+
+{%  endblock %}

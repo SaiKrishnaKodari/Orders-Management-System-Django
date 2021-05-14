@@ -1,0 +1,70 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+<title>Trubot Login </title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="shortcut icon" href="{%static 'favicon.ico'%}" type="image/x-icon">
+<link rel="icon" href="{%static'favicon.ico'}" type="image/x-icon">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300' rel='stylesheet' type='text/css'>
+<link href="{%static 'styles/styles.css'%}" rel="stylesheet">
+<link href="{%static 'styles/bootstrap.min.css'%}" rel="stylesheet"> 
+<link href="{% static 'styles/font-awesome.min.css'%}" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="{%static 'styles/customstyles.css'%}" rel="stylesheet">
+<link href="{%static 'styles/parsley.css'%}" rel="stylesheet"> 
+<link href="{%static 'styles/dataTables.bootstrap.css'%}" rel="stylesheet"/> 
+<!--Scripts--> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script> 
+<script type="text/javascript" src="<{%static 'js/jquery-migrate-1.3.0.min.js'%}"></script> 
+</head>
+<body style="background-image:url({%static 'background.jpg' %})"> 
+<!--SuperDiv [Start]-->
+<div id="superdiv">
+	<div id="content">
+		<div class="container">
+			<div class="row">
+				<!--Login section [Start]-->
+				<div class="sc-register" id="login">
+                    <aside class="logo text-center">
+                        <img src="{% static 'logo1.jpg' %}" alt="Trubot" height="85" width="150">
+                    </aside><br>
+					<div class="col-md-5 col-xs-12 fn mauto">
+						<div class="rbox">
+							<h2 class="txt-center">Administrator</h2>
+							<h3 class="txt-center bold">Login</h3>
+							<div class="col-md-10 fn mauto">
+                            <form control="" class="form-group" method="POST">
+                                {% csrf_token %}
+							<input type="hidden" name="return_url" style="display:none;" />
+								<div class="form-group">
+                                    <input type="text" name="username" id="username" class="form-control" placeholder="Username">
+								</div>
+								
+								<div class="form-group">
+									<input type="password" name="password" id="password" class="form-control" placeholder="Password">
+								</div>
+								<div class="form-group">
+									<input type="submit" value="Login" class="btn btn-primary fn dpTable mauto">
+								</div>
+							</form>
+							</div>
+						</div>	
+					</div>
+				</div><!--Login section [Start]-->
+				
+			</div><!--/row-->
+		</div><!--/container-->
+	</div><!--Content [END]-->
+	
+</div><!--SuperDiv [END]-->
+
+
+</body>
+</html>
