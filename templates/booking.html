@@ -64,6 +64,7 @@
                             {% if i.status %} 
                             <li><a href="parts/{{i.id}}" class='disabled'><i class="fa fa-cogs"></i> Parts Used</a></li>
                             <li><a href="edit/{{i.id}}" class='disabled'><i class="fa fa-pencil"></i> Edit</a></li>
+                            <li><a href="Print_Invoice/{{i.id}}"><i class="fa fa-print">Print Invoice</i></a></li>
                             <li><a href="status/{{i.id}};mail/{{i.id}}" class='disabled'><i class="fa fa-thumbs-up" disabled></i> Picked-up</a></li><li class="divider"></li>
                             <li><a href="javascript:del(112)" class='disabled'><i class="fa fa-trash"></i> Delete</a></li></ul>
                             {%else%}                      
@@ -98,6 +99,7 @@
     </div><!--/container-->
 </div><!--Content [END]-->
 
+<!-- <p>Price &#x20b9; 9500 = &#x20b9; 9500</p> -->
 
 
 

@@ -116,8 +116,6 @@ def viewjob(request):
     # data=customerentry.objects.filter(jobpending=request.user.username)
     data=customerentry.objects.all().order_by('-status')
     bookings=[obj.__dict__ for obj in data]
-    # print(bookings)
-    #print(bookings)
     bookings=bookings[::-1]
     return render(request,'booking.html',{"bookings":bookings})
 
@@ -175,3 +173,7 @@ def employees(request):
     emp=emp[::-1]
     return render(request,'employees.html',{'emp':emp})
 
+def print(request,id):
+    job=customerentry.objects.filter(id=id)
+    invoice=[obj.__dict__ for obj in job]
+    return render(request, "invoice.html",{'invoice':invoice,'count':'1'}) 
