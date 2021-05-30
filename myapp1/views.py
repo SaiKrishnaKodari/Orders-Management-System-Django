@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate, login,logout
-
+from barcode import EAN13
+  
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:

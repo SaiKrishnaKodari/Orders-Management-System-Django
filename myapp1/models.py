@@ -5,6 +5,10 @@ import uuid
 from shortuuidfield import ShortUUIDField
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
+import barcode
+from barcode.writer import ImageWriter
+from io import BytesIO
+from django.core.files import File
 # Create your models here.
 
 class customerentry(models.Model):
@@ -33,10 +37,7 @@ class customerentry(models.Model):
     others=models.TextField(max_length=200)  
     parts=models.TextField(max_length=120,default="NOTHING YET")
     status=models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.Customername
-
+    
 class Mobilemodel(models.Model):
     devicename=models.CharField(max_length=100)
     def __str__(self):
