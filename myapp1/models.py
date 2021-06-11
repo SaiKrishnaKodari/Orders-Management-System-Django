@@ -54,3 +54,10 @@ class customer(models.Model):
 
 #     def __str__(self):
 #         return self.username            
+
+class branches(models.Model):
+    branch_name=models.CharField(max_length=100)
+    branch_city=models.CharField(max_length=100)
+    branch_Head=models.CharField(max_length=50)
+    def __str__(self):
+        return self.branch_name
