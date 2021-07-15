@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import customerentry,Mobilemodel,customer
 from django.contrib.auth.models import User
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail,EmailMessage
 from django.contrib.auth import authenticate, login,logout
 from barcode import EAN13
   
@@ -19,12 +19,12 @@ def index(request):
 def not_logged(request):
     if not request.user.is_authenticated:
         if request.method=="POST":
-            print(request.POST)
+            # print(request.POST)
             value=request.POST.get("uuid")
-            print(value)
+            # print(value)
             tasks=customerentry.objects.filter(id=value)
             tasks=[obj.__dict__ for obj in tasks]
-            print(tasks)
+            # print(tasks)
             return render(request,"customer.html",{'tasks':tasks})
         return render(request,"customer.html")    
     else:
@@ -33,7 +33,7 @@ def not_logged(request):
 def track(request,selfid):
     tasks=customerentry.objects.filter(id=selfid)
     tasks=[obj.__dict__ for obj in tasks]
-    print(tasks)
+    # print(tasks)
     return render(request,"customer.html",{'tasks':tasks})
                           
 def logout_view(request):
@@ -48,7 +48,7 @@ def final2(request):
 
 def login_view(request):
     if request.method=="POST":
-        print(request.POST)
+        # print(request.POST)
         username=request.POST.get("username")
         password=request.POST.get("password")
         user = authenticate(request, username=username, password=password)
@@ -99,17 +99,21 @@ def addjob(request):
         obj.pictures=request.POST["snaps"]
         obj.others=request.POST["notes"]
         obj.save()
-        print(obj.id)
+        # print(obj.id)
         unique=obj.id
         job=customerentry.objects.filter(id=unique)
         partsenter=[obj.__dict__ for obj in job]
-        print(partsenter[0])
+        # print(partsenter[0])
         mail=list({partsenter[0]["Email"]})
         subject = 'welcome to Trubot world'
         message = f'Hi {partsenter[0]["Customername"]}, Thanks for visiting store,You can track your device by clicking below link."http://127.0.0.1:8000/{partsenter[0]["id"]}"'
+        message.attach('logo.png', img_data, 'static/logo.png')
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [mail[0]]
         send_mail( subject, message, email_from, recipient_list )
+        # ////////////////////////////////////////////////
+        msg = EmailMessage(subject,message, email_from, recipient_list)
+        # ////////////////////////////////////////////////
         return render(request,'addjob.html',{"obj":unique})
     return render(request,'addjob.html',{'devices':devices,'techies':techies})    
 
@@ -135,7 +139,7 @@ def edit(request,id):
 def mail(request,id):
     job=customerentry.objects.filter(id=id)
     partsenter=[obj.__dict__ for obj in job]
-    print(partsenter[0])
+    # print(partsenter[0])
     mail=list({partsenter[0]["Email"]})
     subject = 'welcome to Trubot world'
     message = f'Hi {partsenter[0]["Customername"]}, You are ready to pick up your Device.'
@@ -154,7 +158,7 @@ def clientspage(request):
 
 def brands(request):
     if request.method=="POST":
-        print("in post")
+        # print("in post")
         dev=Mobilemodel()
         dev.devicename=request.POST['brandname']
         dev.save()
@@ -163,7 +167,7 @@ def brands(request):
         deals=deals[::-1]
         return render(request,'brands.html',{'deals':deals})
     data=Mobilemodel.objects.all()
-    print("out if")
+    # print("out if")
     deals=[obj.__dict__ for obj in data]
     deals=deals[::-1]
     return render(request,'brands.html',{'deals':deals})
@@ -178,3 +182,18 @@ def print(request,id):
     job=customerentry.objects.filter(id=id)
     invoice=[obj.__dict__ for obj in job]
     return render(request, "invoice.html",{'invoice':invoice,'count':'1'}) 
+
+def checkin(request,id):
+    job=customerentry.objects.filter(id=id)
+    invoice=[obj.__dict__ for obj in job]
+    return render(request, "checkin.html",{'invoice':invoice,'count':'1'}) 
+
+
+def normal(request):
+    subject = 'welcome to Trubot world'
+    message = 'welcome to Trubot world mister'
+    email_from = settings.EMAIL_HOST_USER
+    msg = EmailMessage(subject,message, email_from,['saikrishnakodari00@gmail.com'])
+    msg.attach_file('static/logo.png')
+    msg.send()
+    return HttpResponse('sent')

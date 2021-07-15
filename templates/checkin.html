@@ -9,7 +9,7 @@
 <body onload="window.print();">
 <header class="clearfix">
   <div id="logo"><img src="{%static 'logo1.jpg'%}"/>
-    <div id="center_title">Invoice Receipt</div>
+    <div id="center_title">Check-In Receipt</div>
   </div>
   <hr>
   <div id="customer">
@@ -76,6 +76,47 @@
       </tr>      
     </table>
   </div>
+  <table width="100%" border="0" cellspacing="0" class="data-table">
+    <tr >
+      <td id="th_center" colspan="5" scope="col"><h3>Pre-Checkings</h3></td>
+    </tr>      
+    <tr>
+      {% for j in count %}
+      <th style="width: 17%">Power</th>
+      <th style="width: 15%">Charging </th>
+      <th style="width: 20%">Display </th>
+      <th style="width: 13%">Camera</th>
+      <th style="width: 13%">Battery</th>
+    </tr>     
+    <tr>
+       {% if i.power %}
+        <td>Working</td>
+       {%else%} 
+       <td>Not Working</td>
+       {%endif%}
+       {% if i.charging %}
+        <td>Working</td>
+       {%else%} 
+       <td>Not Working</td>
+       {%endif%}
+       {% if i.display %}
+        <td>Working</td>
+       {%else%} 
+       <td>Not Working</td>
+       {%endif%}
+       {% if i.camera %}
+        <td>Working</td>
+       {%else%} 
+       <td>Not Working</td>
+       {%endif%}
+       {% if i.battery %}
+        <td>Working</td>
+       {%else%} 
+       <td>Not Working</td>
+       {%endif%}       
+    </tr>
+    {% endfor %}  
+  </table>
   <hr>
     <table width="100%" border="0" cellspacing="0" class="data-table">
       <tr >

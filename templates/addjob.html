@@ -6,7 +6,10 @@
       $( "#datepick" ).datepicker({dateFormat: "yyyy-mm-dd",  minDate: -20, maxDate: "+1M +15D" });
       $( "#datepick1" ).datepicker({dateFormat: "yy-mm-dd",  minDate: -20, maxDate: "+1M +15D" });
   
-    } );
+    } ); 
+    document.getElementById('customer').addEventListener('input', function() {
+    console.log(this.value);
+    });
     </script>
 <div class="container bookings-form">
         <div class="row">
@@ -188,8 +191,8 @@
                                 <label class="dpBlock" for="">Display</label>
                                 <select data-placeholder="Select From List" class="form-control" name="display" required="">
                                     <option></option>
-                                    <option value="1" <?php echo set_select('display[]', 1, $device['display'] == 1 ?TRUE:FALSE ); ?>>Working</option>
-                                    <option value="0" <?php echo set_select('display[]', 0, $device['display'] == 0 ?TRUE:FALSE ); ?>>Not Working</option>
+                                    <option value="True" >Working</option>
+                                    <option value="False">Not Working</option>
                                 </select>
                             </div>
                         </div>

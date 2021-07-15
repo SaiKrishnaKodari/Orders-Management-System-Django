@@ -61,3 +61,5 @@ class branches(models.Model):
     branch_Head=models.CharField(max_length=50)
     def __str__(self):
         return self.branch_name
+
+        
